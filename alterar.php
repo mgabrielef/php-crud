@@ -1,3 +1,4 @@
+<link href="static/style.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <?php
@@ -10,6 +11,7 @@ if (isset($_GET['cod_cliente'])) {
     $clientes = $sql->fetchAll();
 
     foreach ($clientes as $cliente) {
+        echo "<div class='container'>";
         echo "<form method='POST'>";
         echo "<legend>Insira os dados abaixo:</legend>";
         echo "<fieldset>";
@@ -23,12 +25,12 @@ if (isset($_GET['cod_cliente'])) {
         echo "Email: <input type='email' class='form-control' name='email' value='" . $cliente['email'] . "'>";
         echo "</div>";
         echo "<div>";
-        echo "<input type='submit' class='btn btn-primary' value='Enviar'>";
-        echo "<input type='reset' class='btn btn-primary' value='Limpar Dados'>";
+        echo "<br><button class='botao' type='submit' value='Enviar'>Enviar</button>";
+        echo "<button class='botao' type='reset' value='Limpar dados'>Limpar dados</button>";
         echo "</div>";
         echo "<br>";
         echo "</fieldset>";
-        echo "</form>";
+        echo "</form></div>";
     }
 }
 
@@ -36,7 +38,5 @@ if (isset($_POST['nome'])) {
     $sql = $pdo->prepare("UPDATE tab_clientes SET nome = ?, cpf = ?, email = ? WHERE cod_cliente = $cod_cliente");
     $sql->execute(array($_POST['nome'], $_POST['cpf'], $_POST['email']));
     echo "<h1>Usuário com id = $cod_cliente alterado com sucesso!</h1>";
-    echo "<button class='btn btn-primary'><a href='index.php'>Voltar</a></button>";
-
-    //echo "<h1>Alterado com sucesso!</h1>";
+    echo "<button class='botao'><a href='index.php'>Voltar</a></button>";
 }
